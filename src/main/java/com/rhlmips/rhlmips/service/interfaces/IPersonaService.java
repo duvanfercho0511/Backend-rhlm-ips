@@ -9,4 +9,13 @@ import java.util.List;
 public interface IPersonaService {
 
     List<Persona> getAll();
+
+    Persona findPersonaById(Long id);
+
+    Persona createPersona(Persona persona);
+
+    Persona updatePersona(Persona persona);
+
+    void deletePersonaById(Long id);
+
 }

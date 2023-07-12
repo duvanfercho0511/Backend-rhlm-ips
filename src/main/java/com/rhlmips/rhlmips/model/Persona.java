@@ -39,4 +39,5 @@ public class Persona implements Serializable {
     @Column(name = "fecha_hasta")
     @Temporal(TemporalType.DATE)
     private Date fechaHasta;
+
 }
