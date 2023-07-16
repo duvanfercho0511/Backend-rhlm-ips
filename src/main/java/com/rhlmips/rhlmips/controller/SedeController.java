@@ -57,7 +57,7 @@ public class SedeController {
         if (sedeBD == null) {
             return new ResponseEntity<>(new SedeDTO(), HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(SedeMapper.INSTANCE.toSedeDTO(sede), HttpStatus.OK);
+        return new ResponseEntity<>(SedeMapper.INSTANCE.toSedeDTO(sedeBD), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

@@ -9,7 +9,9 @@ import com.rhlmips.rhlmips.repository.ITratamientoRepository;
 import com.rhlmips.rhlmips.service.interfaces.ITratamientoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
@@ -21,6 +23,9 @@ public class TratamientoServiceImpl implements ITratamientoService {
 
     private IMedicamentoRepository medicamentoRepository;
 
+    private EntityManager entityManager;
+
+
     @Override
     public List<Tratamiento> getAll() {
         return this.tratamientoRepository.findAll();
@@ -31,10 +36,13 @@ public class TratamientoServiceImpl implements ITratamientoService {
         return this.tratamientoRepository.findById(id).orElseThrow(DataNotFoundException::new);
     }
 
+    @Transactional
     @Override
     public Tratamiento createTratamiento(Tratamiento tratamiento) {
         this.validarCreacionTratamiento(tratamiento);
-        return this.tratamientoRepository.save(tratamiento);
+        var tratamientoBD = this.tratamientoRepository.save(tratamiento);
+        this.entityManager.refresh(tratamientoBD);
+        return tratamientoBD;
     }
 
     @Override
@@ -90,5 +98,10 @@ public class TratamientoServiceImpl implements ITratamientoService {
     @Autowired
     public void setTratamientoRepository(ITratamientoRepository tratamientoRepository) {
         this.tratamientoRepository = tratamientoRepository;
+    }
+
+    @Autowired
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

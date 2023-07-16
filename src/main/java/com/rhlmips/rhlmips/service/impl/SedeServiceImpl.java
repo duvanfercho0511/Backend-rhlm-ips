@@ -7,13 +7,17 @@ import com.rhlmips.rhlmips.repository.ISedeRepository;
 import com.rhlmips.rhlmips.service.interfaces.ISedeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
 public class SedeServiceImpl implements ISedeService {
 
     private ISedeRepository sedeRepository;
+
+    private EntityManager entityManager;
 
     @Override
     public List<Sede> getAll() {
@@ -25,10 +29,13 @@ public class SedeServiceImpl implements ISedeService {
         return this.sedeRepository.findById(id).orElseThrow(DataNotFoundException::new);
     }
 
+    @Transactional
     @Override
     public Sede createSede(Sede sede) {
         this.validarCreacionSede(sede);
-        return this.sedeRepository.save(sede);
+        var sedeBD = this.sedeRepository.save(sede);
+        this.entityManager.refresh(sedeBD);
+        return sedeBD;
     }
 
     @Override
@@ -55,5 +62,10 @@ public class SedeServiceImpl implements ISedeService {
     @Autowired
     public void setSedeRepository(ISedeRepository sedeRepository) {
         this.sedeRepository = sedeRepository;
+    }
+
+    @Autowired
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

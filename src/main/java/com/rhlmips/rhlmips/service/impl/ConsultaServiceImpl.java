@@ -7,7 +7,9 @@ import com.rhlmips.rhlmips.repository.*;
 import com.rhlmips.rhlmips.service.interfaces.IConsultaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
@@ -23,6 +25,7 @@ public class ConsultaServiceImpl implements IConsultaService {
 
     private ITratamientoRepository tratamientoRepository;
 
+    private EntityManager entityManager;
 
     @Override
     public List<Consulta> getAllByIdPacienteAndIdMedico(Long idPaciente, Long idMedico) {
@@ -34,10 +37,13 @@ public class ConsultaServiceImpl implements IConsultaService {
         return this.consultaRepository.findById(id).orElseThrow(DataNotFoundException::new);
     }
 
+    @Transactional
     @Override
     public Consulta createConsulta(Consulta consulta) {
         this.validarCreacionConsulta(consulta);
-        return this.consultaRepository.save(consulta);
+        var consultaBD = this.consultaRepository.save(consulta);
+        this.entityManager.refresh(consultaBD);
+        return consultaBD;
     }
 
     @Override
@@ -116,4 +122,8 @@ public class ConsultaServiceImpl implements IConsultaService {
         this.sedeRepository = sedeRepository;
     }
 
+    @Autowired
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 }

@@ -8,13 +8,17 @@ import com.rhlmips.rhlmips.repository.ITerapiaRepository;
 import com.rhlmips.rhlmips.service.interfaces.ITerapiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
 public class TerapiaServiceImpl implements ITerapiaService {
 
     private ITerapiaRepository terapiaRepository;
+
+    private EntityManager entityManager;
 
     @Override
     public List<Terapia> getAll() {
@@ -26,10 +30,13 @@ public class TerapiaServiceImpl implements ITerapiaService {
         return this.terapiaRepository.findById(id).orElseThrow(DataNotFoundException::new);
     }
 
+    @Transactional
     @Override
     public Terapia createTerapia(Terapia terapia) {
         this.validarCreacionTerapia(terapia);
-        return this.terapiaRepository.save(terapia);
+        var terapiaBD = this.terapiaRepository.save(terapia);
+        this.entityManager.refresh(terapiaBD);
+        return terapiaBD;
     }
 
     @Override
@@ -57,5 +64,10 @@ public class TerapiaServiceImpl implements ITerapiaService {
     @Autowired
     public void setTerapiaRepository(ITerapiaRepository terapiaRepository) {
         this.terapiaRepository = terapiaRepository;
+    }
+
+    @Autowired
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

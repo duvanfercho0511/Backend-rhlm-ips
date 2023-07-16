@@ -21,14 +21,6 @@ public class PersonaController {
 
     private IPersonaService personaService;
 
-    //railway netlify
-
-    /*<dependency>
-    <groupId>org.modelmapper</groupId>
-    <artifactId>modelmapper</artifactId>
-    <version>2.4.4</version>
-    </dependency>*/
-
     @GetMapping("/getAll")
     public ResponseEntity<List<PersonaDTO>> getAll(){
         List<Persona> personaList = this.personaService.getAll();

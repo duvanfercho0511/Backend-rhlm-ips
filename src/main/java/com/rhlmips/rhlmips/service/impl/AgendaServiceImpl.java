@@ -9,7 +9,9 @@ import com.rhlmips.rhlmips.repository.IMedicoRepository;
 import com.rhlmips.rhlmips.service.interfaces.IAgendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
@@ -21,6 +23,8 @@ public class AgendaServiceImpl implements IAgendaService {
 
     private IConsultaRepository consultaRepository;
 
+    private EntityManager entityManager;
+
     @Override
     public List<Agenda> getAllByIdMedico(Long idMedico) {
         return this.agendaRepository.getAllByIdMedico(idMedico);
@@ -31,10 +35,13 @@ public class AgendaServiceImpl implements IAgendaService {
         return this.agendaRepository.findById(id).orElseThrow(DataNotFoundException::new);
     }
 
+    @Transactional
     @Override
     public Agenda createAgenda(Agenda agenda) {
         this.validarCreacionAgenda(agenda);
-        return this.agendaRepository.save(agenda);
+        var agendaBD =  this.agendaRepository.save(agenda);
+        this.entityManager.refresh(agendaBD);
+        return agendaBD;
     }
 
     @Override
@@ -90,5 +97,10 @@ public class AgendaServiceImpl implements IAgendaService {
     @Autowired
     public void setConsultaRepository(IConsultaRepository consultaRepository) {
         this.consultaRepository = consultaRepository;
+    }
+
+    @Autowired
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

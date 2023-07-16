@@ -8,6 +8,7 @@ import com.rhlmips.rhlmips.repository.IPersonaRepository;
 import com.rhlmips.rhlmips.service.interfaces.IPersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
@@ -18,7 +19,7 @@ public class PersonaServiceImpl implements IPersonaService {
 
     private IPersonaRepository personaRepository;
 
-    //private EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     public List<Persona> getAll() {
@@ -30,12 +31,13 @@ public class PersonaServiceImpl implements IPersonaService {
         return this.personaRepository.findById(id).orElseThrow(DataNotFoundException::new);
     }
 
+    @Transactional
     @Override
     public Persona createPersona(Persona persona) {
         this.validarCreacionPersona(persona);
         var personaBD = this.personaRepository.save(persona);
-        //this.entityManager.refresh(personaBD);
-        return persona;
+        this.entityManager.refresh(personaBD);
+        return personaBD;
     }
 
     @Override
@@ -81,8 +83,8 @@ public class PersonaServiceImpl implements IPersonaService {
         this.personaRepository = personaRepository;
     }
 
-    /*@Autowired
+    @Autowired
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
-    }*/
+    }
 }

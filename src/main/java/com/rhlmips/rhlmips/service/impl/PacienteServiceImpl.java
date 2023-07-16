@@ -9,7 +9,9 @@ import com.rhlmips.rhlmips.repository.IPersonaRepository;
 import com.rhlmips.rhlmips.service.interfaces.IPacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
@@ -17,6 +19,7 @@ public class PacienteServiceImpl implements IPacienteService {
 
     private IPacienteRepository pacienteRepository;
 
+    private EntityManager entityManager;
 
     @Override
     public List<Paciente> getAll() {
@@ -28,10 +31,13 @@ public class PacienteServiceImpl implements IPacienteService {
         return this.pacienteRepository.findById(id).orElseThrow(DataNotFoundException::new);
     }
 
+    @Transactional
     @Override
     public Paciente createPaciente(Paciente paciente) {
         this.validarCreacionPaciente(paciente);
-        return this.pacienteRepository.save(paciente);
+        var pacienteBD = this.pacienteRepository.save(paciente);
+        this.entityManager.refresh(pacienteBD);
+        return pacienteBD;
     }
 
     @Override
@@ -49,5 +55,10 @@ public class PacienteServiceImpl implements IPacienteService {
     @Autowired
     public void setPacienteRepository(IPacienteRepository pacienteRepository) {
         this.pacienteRepository = pacienteRepository;
+    }
+
+    @Autowired
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

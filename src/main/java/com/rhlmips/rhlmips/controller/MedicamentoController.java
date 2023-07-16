@@ -46,7 +46,7 @@ public class MedicamentoController {
         Medicamento medicamento = MedicamentoMapper.INSTANCE.toMedicamento(medicamentoDTO);
         var medicamentoBD = this.medicamentoService.createMedicamento(medicamento);
         if(medicamentoBD == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
-        return ResponseEntity.ok(MedicamentoMapper.INSTANCE.toMedicamentoDTO(medicamento));
+        return ResponseEntity.ok(MedicamentoMapper.INSTANCE.toMedicamentoDTO(medicamentoBD));
     }
 
     @PutMapping
@@ -57,7 +57,7 @@ public class MedicamentoController {
         if (medicamentoBD == null) {
             return new ResponseEntity<>(new MedicamentoDTO(), HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(MedicamentoMapper.INSTANCE.toMedicamentoDTO(medicamento), HttpStatus.OK);
+        return new ResponseEntity<>(MedicamentoMapper.INSTANCE.toMedicamentoDTO(medicamentoBD), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
