@@ -48,7 +48,7 @@ public class PersonaServiceImpl implements IPersonaService {
         personaBD.setFechaNacimiento(persona.getFechaNacimiento());
         personaBD.setFechaDesde(persona.getFechaDesde());
         personaBD.setFechaHasta(persona.getFechaHasta());
-        return personaBD;
+        return this.personaRepository.save(personaBD);
     }
 
     @Override

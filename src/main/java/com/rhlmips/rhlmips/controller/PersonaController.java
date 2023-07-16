@@ -21,6 +21,14 @@ public class PersonaController {
 
     private IPersonaService personaService;
 
+    //railway netlify
+
+    /*<dependency>
+    <groupId>org.modelmapper</groupId>
+    <artifactId>modelmapper</artifactId>
+    <version>2.4.4</version>
+    </dependency>*/
+
     @GetMapping("/getAll")
     public ResponseEntity<List<PersonaDTO>> getAll(){
         List<Persona> personaList = this.personaService.getAll();
@@ -41,7 +49,7 @@ public class PersonaController {
         return new ResponseEntity<>(PersonaMapper.INSTANCE.toPersonaDTO(persona), HttpStatus.OK);
     }
 
-    @PostMapping("/createPersona")
+    @PostMapping
     public ResponseEntity<PersonaDTO> createPersona(
             @Valid @RequestBody PersonaDTO personaDTO){
         Persona persona = PersonaMapper.INSTANCE.toPersona(personaDTO);
@@ -50,7 +58,7 @@ public class PersonaController {
         return ResponseEntity.ok(PersonaMapper.INSTANCE.toPersonaDTO(personaBD));
     }
 
-    @PutMapping("/updatePersona")
+    @PutMapping
     public ResponseEntity<PersonaDTO> updatePersona(
             @Valid @RequestBody PersonaDTO personaDTO){
         Persona persona = PersonaMapper.INSTANCE.toPersona(personaDTO);

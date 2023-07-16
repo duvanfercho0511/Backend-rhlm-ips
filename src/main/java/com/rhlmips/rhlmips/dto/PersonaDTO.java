@@ -19,7 +19,6 @@ public class PersonaDTO implements Serializable {
 
     private static final long serialVersionUID = 3680251739268601659L;
 
-
     private Long id;
 
     @NotNull(message = "Campo no puede ser nulo")
