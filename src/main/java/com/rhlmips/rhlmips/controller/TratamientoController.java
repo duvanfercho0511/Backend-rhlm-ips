@@ -23,8 +23,8 @@ public class TratamientoController {
 
     private ITratamientoService tratamientoService;
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<TratamientoDTO>> getAll(){
+    @GetMapping("/getAllTratamiento")
+    public ResponseEntity<List<TratamientoDTO>> getAllTratamiento(){
         List<Tratamiento> tratamientoList = this.tratamientoService.getAll();
         if (tratamientoList == null || tratamientoList.isEmpty()) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);

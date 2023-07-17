@@ -24,8 +24,8 @@ public class MedicoController {
 
     private IMedicoService medicoService;
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<MedicoDTO>> getAll(){
+    @GetMapping("/getAllMedico")
+    public ResponseEntity<List<MedicoDTO>> getAllMedico(){
         List<Medico> medicoList = this.medicoService.getAll();
         if (medicoList == null || medicoList.isEmpty()) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);

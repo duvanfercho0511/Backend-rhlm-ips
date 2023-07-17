@@ -20,8 +20,8 @@ public class ConsultaController {
 
     private IConsultaService consultaService;
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<ConsultaDTO>> getAll(
+    @GetMapping("/getAllConsulta")
+    public ResponseEntity<List<ConsultaDTO>> getAllConsulta(
             @RequestParam (value = "idPaciente", required = false) Long idPaciente,
             @RequestParam (value = "idMedico", required = false) Long idMedico){
         List<Consulta> consultaList = this.consultaService.getAllByIdPacienteAndIdMedico(idPaciente, idMedico);

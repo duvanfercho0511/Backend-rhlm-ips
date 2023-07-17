@@ -20,8 +20,8 @@ public class SedeController {
 
     private ISedeService sedeService;
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<SedeDTO>> getAll(){
+    @GetMapping("/getAllSede")
+    public ResponseEntity<List<SedeDTO>> getAllSede(){
         List<Sede> sedeList = this.sedeService.getAll();
         if (sedeList == null || sedeList.isEmpty()) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);

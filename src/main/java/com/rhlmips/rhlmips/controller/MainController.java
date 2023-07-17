@@ -10,7 +10,7 @@ public class MainController {
 
     @GetMapping("/despliegue")
     public String depliegue(){
-        return "Agt los presos y los eternos pronta libertad, piraña vive toda la puta vida \n en la calle estamos los cuerdos mas locos \n las rejas no son nuestras mejores amigas dios bendice";
+        return "Agt los presos y los eternos pronta libertad, piraña vive toda la puta vida \n en la calle estamos los cuerdos mas locos \n las rejas son nuestras mejores amigas dios bendice";
     }
 
     //https://real-hasta-la-muerte.up.railway.app/rhlm/api/

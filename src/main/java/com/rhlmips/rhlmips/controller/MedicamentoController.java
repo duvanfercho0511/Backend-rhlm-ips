@@ -20,8 +20,8 @@ public class MedicamentoController {
 
     private IMedicamentoService medicamentoService;
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<MedicamentoDTO>> getAll(){
+    @GetMapping("/getAllMedicamento")
+    public ResponseEntity<List<MedicamentoDTO>> getAllMedicamento(){
         List<Medicamento> medicamentoList = this.medicamentoService.getAll();
         if (medicamentoList == null || medicamentoList.isEmpty()) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);

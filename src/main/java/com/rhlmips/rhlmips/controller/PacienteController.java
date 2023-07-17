@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 public class PacienteController {
 
     private IPacienteService pacienteService;
-    @GetMapping("/getAll")
-    public ResponseEntity<List<PacienteDTO>> getAll(){
+    @GetMapping("/getAllPaciente")
+    public ResponseEntity<List<PacienteDTO>> getAllPaciente(){
         List<Paciente> pacienteList = this.pacienteService.getAll();
         if (pacienteList == null || pacienteList.isEmpty()) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);

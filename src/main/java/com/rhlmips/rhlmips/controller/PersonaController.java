@@ -21,8 +21,8 @@ public class PersonaController {
 
     private IPersonaService personaService;
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<PersonaDTO>> getAll(){
+    @GetMapping("/getAllPersona")
+    public ResponseEntity<List<PersonaDTO>> getAllPersona(){
         List<Persona> personaList = this.personaService.getAll();
         if (personaList == null || personaList.isEmpty()) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);

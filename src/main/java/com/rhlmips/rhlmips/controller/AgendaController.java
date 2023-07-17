@@ -23,8 +23,8 @@ public class AgendaController {
 
     private IAgendaService agendaService;
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<AgendaDTO>> getAll(
+    @GetMapping("/getAllAgenda")
+    public ResponseEntity<List<AgendaDTO>> getAllAgenda(
             @RequestParam (value = "idMedico", required = false) Long idMedico){
         List<Agenda> agendaList = this.agendaService.getAllByIdMedico(idMedico);
         if (agendaList == null || agendaList.isEmpty()) {

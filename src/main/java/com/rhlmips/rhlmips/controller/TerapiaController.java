@@ -24,8 +24,8 @@ public class TerapiaController {
 
     private ITerapiaService terapiaService;
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<TerapiaDTO>> getAll(){
+    @GetMapping("/getAllTerapia")
+    public ResponseEntity<List<TerapiaDTO>> getAllTerapia(){
         List<Terapia> terapiaList = this.terapiaService.getAll();
         if (terapiaList == null || terapiaList.isEmpty()) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
