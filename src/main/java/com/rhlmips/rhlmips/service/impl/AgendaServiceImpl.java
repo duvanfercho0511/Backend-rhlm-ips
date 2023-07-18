@@ -71,14 +71,12 @@ public class AgendaServiceImpl implements IAgendaService {
     private Agenda setValoresDTO(Agenda agenda){
 
         var agendaSaved = this.agendaRepository.save(agenda);
-
         var medico = this.medicoRepository.findById(agendaSaved.getIdMedico()).orElseThrow(DataNotFoundException::new);
-        var consulta = this.consultaRepository.findById(agendaSaved.getIdConsulta()).orElseThrow(DataNotFoundException::new);
-
         if(medico!= null){
             agendaSaved.setMedico(medico);
         }
-        if(consulta!= null){
+        if(agendaSaved.getIdConsulta()!= null){
+            var consulta = this.consultaRepository.findById(agendaSaved.getIdConsulta()).orElseThrow(DataNotFoundException::new);
             agendaSaved.setConsulta(consulta);
         }
         return agendaSaved;
