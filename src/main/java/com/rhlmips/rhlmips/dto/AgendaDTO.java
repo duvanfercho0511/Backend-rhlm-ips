@@ -26,7 +26,6 @@ public class AgendaDTO implements Serializable {
     private Long idMedico;
     private String nombreMedico;
 
-    @NotNull(message = "Campo no puede ser nulo")
     private Long idConsulta;
 
     @NotNull(message = "Campo no puede ser nulo")
