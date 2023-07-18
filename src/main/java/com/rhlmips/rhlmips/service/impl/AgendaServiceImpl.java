@@ -38,7 +38,7 @@ public class AgendaServiceImpl implements IAgendaService {
     @Transactional
     @Override
     public Agenda createAgenda(Agenda agenda) {
-        this.validarCreacionAgenda(agenda);
+        //this.validarCreacionAgenda(agenda);
         var agendaBD =  this.agendaRepository.save(agenda);
         this.entityManager.refresh(agendaBD);
         return agendaBD;
@@ -46,7 +46,7 @@ public class AgendaServiceImpl implements IAgendaService {
 
     @Override
     public Agenda updateAgenda(Agenda agenda) {
-        this.validarCreacionAgenda(agenda);
+        //this.validarCreacionAgenda(agenda);
         var agendaBD = this.agendaRepository.findById(agenda.getId()).orElseThrow(DataNotFoundException::new);
         agendaBD.setIdMedico(agenda.getIdMedico());
         agendaBD.setIdConsulta(agenda.getIdConsulta());
