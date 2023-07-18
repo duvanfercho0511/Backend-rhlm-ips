@@ -40,7 +40,7 @@ public class ConsultaServiceImpl implements IConsultaService {
     @Transactional
     @Override
     public Consulta createConsulta(Consulta consulta) {
-        this.validarCreacionConsulta(consulta);
+        //this.validarCreacionConsulta(consulta);
         var consultaBD = this.consultaRepository.save(consulta);
         this.entityManager.refresh(consultaBD);
         return consultaBD;
@@ -48,7 +48,7 @@ public class ConsultaServiceImpl implements IConsultaService {
 
     @Override
     public Consulta updateConsulta(Consulta consulta) {
-        this.validarCreacionConsulta(consulta);
+        //this.validarCreacionConsulta(consulta);
         var consultaBD = this.consultaRepository.findById(consulta.getId()).orElseThrow(DataNotFoundException::new);
         consultaBD.setIdSede(consulta.getIdSede());
         consultaBD.setIdPaciente(consulta.getIdPaciente());
