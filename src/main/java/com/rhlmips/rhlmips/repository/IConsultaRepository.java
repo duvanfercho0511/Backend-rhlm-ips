@@ -17,7 +17,7 @@ public interface IConsultaRepository extends JpaRepository<Consulta, Long> {
             "AND ( c.idSede = :idSede " +
             "OR c.idPaciente = :idPaciente " +
             "OR c.idMedico = :idMedico) ")
-    Boolean existsBySedeAndPacienteAndMedico(Long id, Long idSede, Long idPaciente, Long idMedico, Date fecha);
+    Boolean existsBySedeAndPacienteAndMedico(Long id, Long idSede, Long idPaciente, Long idMedico);
 
 
     @Query("SELECT c " +

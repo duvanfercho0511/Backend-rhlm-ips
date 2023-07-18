@@ -67,7 +67,7 @@ public class ConsultaServiceImpl implements IConsultaService {
     }
 
     private void validarCreacionConsulta(Consulta consulta){
-        var existsSimilar = this.consultaRepository.existsBySedeAndPacienteAndMedico(consulta.getId(), consulta.getIdSede(), consulta.getIdPaciente(), consulta.getIdMedico(), consulta.getFecha());
+        var existsSimilar = this.consultaRepository.existsBySedeAndPacienteAndMedico(consulta.getId(), consulta.getIdSede(), consulta.getIdPaciente(), consulta.getIdMedico());
         if (Boolean.TRUE.equals(existsSimilar))
             throw new ValidacionException("Ya existe una consulta en esta fecha para esta sede, paciente o medico.");
     }
